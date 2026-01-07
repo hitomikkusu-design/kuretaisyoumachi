@@ -4,28 +4,133 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ title or "くれたいしょうまち" }}</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a30cc;
+      --text:#eaf0ff;
+      --muted:#b7c3e6;
+      --line:#203056;
+      --btn:#ffffff;
+      --btnText:#0b1220;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 500px at 20% 0%, #1a2b57 0%, var(--bg) 55%, #070b14 100%);
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:980px; margin:0 auto; padding:18px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:12px 0;
+    }
+    .brand{display:flex; gap:10px; align-items:center; text-decoration:none}
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, #ffffff 0%, #a9c1ff 40%, #4aa3ff 100%);
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .brand b{letter-spacing:.02em}
+    .nav{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{
+      text-decoration:none;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      padding:8px 12px; border-radius:999px;
+      color:var(--muted);
+    }
+    .pill:hover{background: rgba(255,255,255,.08)}
+    .hero{
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.0) 0%, rgba(0,0,0,.55) 80%),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=60");
+      background-size: cover;
+      background-position: center;
+      box-shadow:0 18px 50px rgba(0,0,0,.45);
+    }
+    .heroInner{padding:26px}
+    .kicker{color:var(--muted); font-size:14px}
+    h1{margin:10px 0 8px; font-size:28px}
+    .lead{margin:0; color:#d5defa; line-height:1.6}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      text-decoration:none;
+      padding:11px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.08);
+      color:var(--text);
+      backdrop-filter: blur(8px);
+    }
+    .btnPrimary{
+      background: var(--btn);
+      color: var(--btnText);
+      border-color: transparent;
+      font-weight:700;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    .card{
+      grid-column: span 12;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius:16px;
+      padding:16px;
+    }
+    .card h2{margin:0 0 8px; font-size:16px}
+    .meta{color:var(--muted); font-size:13px; line-height:1.6}
+    .list{margin:10px 0 0; padding-left:18px; color:#dbe4ff}
+    .footer{
+      margin:18px 0 6px;
+      color:var(--muted);
+      font-size:12px;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:12px;
+    }
+
+    @media (min-width: 760px){
+      h1{font-size:34px}
+      .card{grid-column: span 6}
+      .card.wide{grid-column: span 12}
+      .heroInner{padding:34px}
+    }
+  </style>
 </head>
+
 <body>
-  <header class="header">
-    <div class="container header__inner">
-      <div class="brand">くれたいしょうまち</div>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="logo" aria-hidden="true"></span>
+        <div>
+          <b>久礼大正町（仮）</b><br/>
+          <span style="color:var(--muted); font-size:12px;">Nakatosa / Kure</span>
+        </div>
+      </a>
       <nav class="nav">
-        <a href="/">TOP</a>
-        <a href="/customer">お客さま</a>
-        <a href="/admin">管理</a>
+        <a class="pill" href="/">トップ</a>
+        <a class="pill" href="/admin">管理</a>
       </nav>
-    </div>
-  </header>
+    </header>
 
-  <main class="container">
     {% block content %}{% endblock %}
-  </main>
 
-  <footer class="footer">
-    <div class="container">
-      <small>© くれたいしょうまち</small>
+    <div class="footer">
+      ※これは試作です（Renderで稼働中）／更新は管理ページから（予定）<br/>
+      Instagramなどのリンクは後で差し替えOK
     </div>
-  </footer>
+  </div>
 </body>
 </html>
