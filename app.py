@@ -6,13 +6,13 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/customer")
-def customer():
-    return render_template("customer.html")
-
 @app.route("/admin")
 def admin():
     return render_template("admin.html")
+
+@app.route("/base")
+def base():
+    return render_template("base.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
