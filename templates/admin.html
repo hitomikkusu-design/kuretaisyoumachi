@@ -1,25 +1,36 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>管理ページ｜くれたいしょうまち</title>
-</head>
-<body>
-  <h1>🔑 管理ページ</h1>
+{% extends "base.html" %}
+{% set title = "管理｜久礼大正町（仮）" %}
 
-  <p>
-    ここは管理者専用ページです。
-  </p>
+{% block content %}
+<section class="grid">
+  <div class="card wide">
+    <h2>管理ページ（まずは入口だけ）</h2>
+    <div class="meta">
+      次の段階で「フォーム」→「保存」→「トップに反映」を作るよ。<br/>
+      今日はここまで来たら大成功。
+    </div>
 
-  <ul>
-    <li>投稿管理（準備中）</li>
-    <li>お知らせ編集（準備中）</li>
-    <li>設定（準備中）</li>
-  </ul>
+    <div class="ctaRow">
+      <a class="btn btnPrimary" href="/">トップを見る</a>
+      <a class="btn" href="#todo">やること</a>
+    </div>
+  </div>
 
-  <p>
-    <a href="/">トップに戻る</a>
-  </p>
+  <div class="card" id="todo">
+    <h2>次に実装する機能</h2>
+    <ul class="list">
+      <li>今日の営業：チェックを付けて更新</li>
+      <li>お店：追加・編集</li>
+      <li>スマホで見やすい一覧</li>
+    </ul>
+  </div>
 
-</body>
-</html>
+  <div class="card">
+    <h2>メモ</h2>
+    <div class="meta">
+      ここに「今日の一言」みたいな欄を作っても良い。<br/>
+      例：朝の入荷情報／イベント告知／限定メニューなど。
+    </div>
+  </div>
+</section>
+{% endblock %}
