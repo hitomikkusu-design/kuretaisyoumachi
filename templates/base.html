@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or "くれたいしょうまち" }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <div class="brand">くれたいしょうまち</div>
+      <nav class="nav">
+        <a href="/">TOP</a>
+        <a href="/customer">お客さま</a>
+        <a href="/admin">管理</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>© くれたいしょうまち</small>
+    </div>
+  </footer>
+</body>
+</html>
