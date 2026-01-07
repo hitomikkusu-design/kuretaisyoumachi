@@ -1,14 +1,18 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "くれたいしょうまち 起動しました！"
+    return render_template("index.html")
 
 @app.route("/customer")
 def customer():
-    return "customerページです（仮）"
+    return render_template("customer.html")
+
+@app.route("/admin")
+def admin():
+    return render_template("admin.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
