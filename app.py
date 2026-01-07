@@ -1,51 +1,58 @@
-from flask import Flask, render_template, request
-import json
 import os
+from flask import Flask, render_template, request, redirect, url_for
+from supabase import create_client
 
 app = Flask(__name__)
 
-DATA_FILE = "data.json"
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")  # まずはこれでOK（後で改善可能）
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-DEFAULT_DATA = {
-    "shops": ["山八", "コクや", "ポルタ", "プサカ"],
-    "open_shops": []
-}
 
-def load_data():
-    if not os.path.exists(DATA_FILE):
-        save_data(DEFAULT_DATA)
-    with open(DATA_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+def get_shops():
+    res = supabase.table("shops").select("*").order("id").execute()
+    return res.data or []
 
-def save_data(data):
-    with open(DATA_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def add_shop(name: str):
+    supabase.table("shops").insert({"name": name, "is_open": False}).execute()
+
+
+def set_open_shops(open_ids):
+    # いったん全店を休みにしてから、チェックされた店だけ営業にする
+    supabase.table("shops").update({"is_open": False}).neq("id", 0).execute()
+    if open_ids:
+        # open_ids は文字列で来るので int に
+        open_ids_int = [int(x) for x in open_ids]
+        supabase.table("shops").update({"is_open": True}).in_("id", open_ids_int).execute()
+
 
 @app.route("/")
 def home():
-    data = load_data()
-    return render_template(
-        "index.html",
-        shops=data["shops"],
-        open_shops=data["open_shops"]
-    )
+    shops = get_shops()
+    open_shops = [s for s in shops if s.get("is_open")]
+    return render_template("index.html", shops=shops, open_shops=open_shops)
+
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-    data = load_data()
     saved = False
 
     if request.method == "POST":
-        data["open_shops"] = request.form.getlist("open_shops")
-        save_data(data)
+        # お店追加
+        new_shop = request.form.get("new_shop", "").strip()
+        if new_shop:
+            add_shop(new_shop)
+
+        # 今日の営業チェック
+        open_ids = request.form.getlist("open_ids")
+        set_open_shops(open_ids)
+
         saved = True
 
-    return render_template(
-        "admin.html",
-        shops=data["shops"],
-        open_shops=data["open_shops"],
-        saved=saved
-    )
+    shops = get_shops()
+    return render_template("admin.html", shops=shops, saved=saved)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
