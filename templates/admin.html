@@ -1,36 +1,14 @@
-{% extends "base.html" %}
-{% set title = "管理｜久礼大正町（仮）" %}
+<hr style="margin:20px 0; opacity:.3;">
 
-{% block content %}
-<section class="grid">
-  <div class="card wide">
-    <h2>管理ページ（まずは入口だけ）</h2>
-    <div class="meta">
-      次の段階で「フォーム」→「保存」→「トップに反映」を作るよ。<br/>
-      今日はここまで来たら大成功。
-    </div>
+<h2>お店を追加</h2>
 
-    <div class="ctaRow">
-      <a class="btn btnPrimary" href="/">トップを見る</a>
-      <a class="btn" href="#todo">やること</a>
-    </div>
-  </div>
-
-  <div class="card" id="todo">
-    <h2>次に実装する機能</h2>
-    <ul class="list">
-      <li>今日の営業：チェックを付けて更新</li>
-      <li>お店：追加・編集</li>
-      <li>スマホで見やすい一覧</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>メモ</h2>
-    <div class="meta">
-      ここに「今日の一言」みたいな欄を作っても良い。<br/>
-      例：朝の入荷情報／イベント告知／限定メニューなど。
-    </div>
-  </div>
-</section>
-{% endblock %}
+<form method="POST" action="/admin/add">
+  <input
+    type="text"
+    name="shop_name"
+    placeholder="例：西村菓子店"
+    style="padding:8px; width:70%;"
+    required
+  >
+  <button class="btn btnPrimary" type="submit">追加</button>
+</form>
