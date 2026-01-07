@@ -1,21 +1,56 @@
 {% extends "base.html" %}
-{% set title = "TOP | くれたいしょうまち" %}
+{% set title = "トップ｜久礼大正町（仮）" %}
 
 {% block content %}
 <section class="hero">
-  <h1>くれたいしょうまち</h1>
-  <p class="lead">まずは「動く・見える」を最速で作る。ここから育てる。</p>
+  <div class="heroInner">
+    <div class="kicker">海と市場の町、久礼</div>
+    <h1>久礼大正町市場（仮）</h1>
+    <p class="lead">
+      今日の営業・おすすめ・お店情報を、ひと目で。<br/>
+      まずは「入口ページ」完成。ここから中身を増やしていくよ。
+    </p>
 
-  <div class="card-grid">
-    <a class="card" href="/customer">
-      <h2>お客さまページ</h2>
-      <p>イベント・メニュー・案内を表示する場所。</p>
-    </a>
+    <div class="ctaRow">
+      <a class="btn btnPrimary" href="/admin">管理ページへ</a>
+      <a class="btn" href="#today">今日の営業（準備中）</a>
+      <a class="btn" href="#shops">お店一覧（準備中）</a>
+    </div>
+  </div>
+</section>
 
-    <a class="card" href="/admin">
-      <h2>管理ページ</h2>
-      <p>更新の入口（今は仮）。</p>
-    </a>
+<section class="grid" id="today">
+  <div class="card wide">
+    <h2>今日の営業（まずは仮）</h2>
+    <div class="meta">
+      ここは後で「営業中/休み」をデータで出せるようにする。<br/>
+      いまは見た目づくりだけOK。
+    </div>
+    <ul class="list">
+      <li>営業：山八 / コクや / ポルタ（例）</li>
+      <li>休み：プサカ（例）</li>
+    </ul>
+  </div>
+
+  <div class="card" id="shops">
+    <h2>お店一覧</h2>
+    <div class="meta">カード一覧にして、タップで詳細へ（予定）</div>
+    <ul class="list">
+      <li>鮮魚</li>
+      <li>惣菜</li>
+      <li>カフェ</li>
+      <li>菓子</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>おすすめ</h2>
+    <div class="meta">「今日の推し」を1つ置ける場所（予定）</div>
+    <ul class="list">
+      <li>例：藁焼き（仮）</li>
+      <li>例：レトロ菓子（仮）</li>
+    </ul>
   </div>
 </section>
 {% endblock %}
+
