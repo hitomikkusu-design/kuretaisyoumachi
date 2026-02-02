@@ -1,12 +1,20 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
-from supabase import create_client
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 
 app = Flask(__name__)
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")  # まずはこれでOK（後で改善可能）
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+
+supabase = None
+if SUPABASE_URL and SUPABASE_KEY:
+    from supabase import create_client
+    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok"})
+
 
 
 def get_shops():
